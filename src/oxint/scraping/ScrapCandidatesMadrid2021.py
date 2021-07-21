@@ -1,4 +1,3 @@
-import json
 import logging
 import re
 
@@ -7,8 +6,18 @@ from oxint.utils.NameUtils import NameUtils
 
 
 class ScrapCandidatesMadrid2021(URLReader):
+    """
+    Recover the list of candidates of a political party that has participated
+    in the "Comunidad de Madrid", 2021, elections
+    https://elecciones.comunidad.madrid/es/formaciones-politicas/listado-candidaturas-proclamadas
+    """
 
     def read(self):
+        """
+        Recover the list of candidates of a political party
+        :return: JSON object that includes the first name, last name and
+        political party abbreviation for each candidate
+        """
         html = super().read()
 
         parties = re.findall(r"<h2 class=\"tit-partido\">(.*)</h2>", html)
@@ -21,7 +30,7 @@ class ScrapCandidatesMadrid2021(URLReader):
 
         json_candidates = ScrapCandidatesMadrid2021.__candidates_to_json(candidates, party_abbrev)
 
-        print(json_candidates)
+        return json_candidates
 
     @staticmethod
     def __candidates_to_json(candidates, party_abbrev: str):
@@ -45,7 +54,7 @@ class ScrapCandidatesMadrid2021(URLReader):
                 }
                 json_candidates["candidates"].append(json_candidate)
 
-        return json.dumps(json_candidates)
+        return json_candidates
 
     @staticmethod
     def __get_party_name_from_title(title: str) -> str:
