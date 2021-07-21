@@ -5,7 +5,7 @@ from oxint.scraping.URLReader import URLReader
 from oxint.utils.NameUtils import NameUtils
 
 
-class ScrapCandidatesMadrid2021(URLReader):
+class ScrapCandidatesComunidadMadrid2021(URLReader):
     """
     Recover the list of candidates of a political party that has participated
     in the "Comunidad de Madrid", 2021, elections
@@ -21,14 +21,14 @@ class ScrapCandidatesMadrid2021(URLReader):
         html = super().read()
 
         parties = re.findall(r"<h2 class=\"tit-partido\">(.*)</h2>", html)
-        party_name = ScrapCandidatesMadrid2021.__get_party_name_from_title(parties[0])
-        party_abbrev = ScrapCandidatesMadrid2021.__get_party_abbrev_from_title(parties[0])
+        party_name = ScrapCandidatesComunidadMadrid2021.__get_party_name_from_title(parties[0])
+        party_abbrev = ScrapCandidatesComunidadMadrid2021.__get_party_abbrev_from_title(parties[0])
         logging.debug(f"{party_name} -- {party_abbrev}")
 
         # Process candidates list
         candidates = re.findall(r"<li>(.*)<\/li>", html)
 
-        json_candidates = ScrapCandidatesMadrid2021.__candidates_to_json(candidates, party_abbrev)
+        json_candidates = ScrapCandidatesComunidadMadrid2021.__candidates_to_json(candidates, party_abbrev)
 
         return json_candidates
 

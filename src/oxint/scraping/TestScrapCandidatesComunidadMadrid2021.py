@@ -1,14 +1,14 @@
 import unittest
 
-from oxint.scraping.ScrapCandidatesMadrid2021 import ScrapCandidatesMadrid2021
+from oxint.scraping.ScrapCandidatesComunidadMadrid2021 import ScrapCandidatesComunidadMadrid2021
 
 
-class TestScrapCandidatesMadrid2021(unittest.TestCase):
+class TestScrapCandidatesComunidadMadrid2021(unittest.TestCase):
     URL_CANDIDATES_PP = "https://elecciones.comunidad.madrid/es/formaciones-politicas/listado-candidaturas/" \
                         "partido-popular-pp"
 
     def test_read(self):
-        scrap = ScrapCandidatesMadrid2021(self.URL_CANDIDATES_PP)
+        scrap = ScrapCandidatesComunidadMadrid2021(self.URL_CANDIDATES_PP)
         json_candidates = scrap.read()
         self.assertIsNotNone(json_candidates)
         self.assertEqual(137, len(json_candidates["candidates"]))
