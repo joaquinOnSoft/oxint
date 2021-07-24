@@ -4,12 +4,14 @@ import unittest
 import oxint.scraping.TestScrapCandidatesComunidadMadrid2021 as TestScrapCandidatesComunidadMadrid2021
 import oxint.scraping.TestURLReader as TestURLReader
 import oxint.utils.TestNameUtils as TestNameUtils
+from oxint.scraping.TestScrapPoliticalPartiesComunidadMadrid2021 import TestScrapPoliticalPartiesComunidadMadrid2021
 
 loader = unittest.TestLoader()
 suite = unittest.TestSuite()
 
 # add tests to the test suite
 suite.addTests(loader.loadTestsFromModule(TestScrapCandidatesComunidadMadrid2021))
+suite.addTests(loader.loadTestsFromModule(TestScrapPoliticalPartiesComunidadMadrid2021))
 suite.addTests(loader.loadTestsFromModule(TestURLReader))
 suite.addTests(loader.loadTestsFromModule(TestNameUtils))
 

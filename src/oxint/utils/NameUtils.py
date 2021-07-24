@@ -31,3 +31,26 @@ class NameUtils:
                         last_name += " "
 
         return last_name
+
+    @staticmethod
+    def get_party_name_from_title(title: str) -> str:
+        name = None
+
+        if title is not None:
+            index_parenthesis = title.find("(")
+            if index_parenthesis > 0:
+                name = title[0: index_parenthesis].split()
+
+        return name
+
+    @staticmethod
+    def get_party_abbrev_from_title(title: str) -> str:
+        name = None
+
+        if title is not None:
+            index_parenthesis = title.find("(") + 1
+            if index_parenthesis > 0:
+                name = title[index_parenthesis:].replace(")", "")
+
+        return name
+

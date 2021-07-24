@@ -8,21 +8,21 @@ from oxint.utils.NameUtils import NameUtils
 class ScrapCandidatesComunidadMadrid2021(URLReader):
     """
     Recover the list of candidates of a political party that has participated
-    in the "Comunidad de Madrid", 2021, elections
+    in the "Comunidad de Madrid" elections in 2021.
     https://elecciones.comunidad.madrid/es/formaciones-politicas/listado-candidaturas-proclamadas
     """
 
     def read(self):
         """
         Recover the list of candidates of a political party
-        :return: JSON object that includes the first name, last name and
-        political party abbreviation for each candidate
+        :return: JSON object that includes the first name, last name, election,
+        year and political party abbreviation for each candidate
         """
         html = super().read()
 
         parties = re.findall(r"<h2 class=\"tit-partido\">(.*)</h2>", html)
-        party_name = ScrapCandidatesComunidadMadrid2021.__get_party_name_from_title(parties[0])
-        party_abbrev = ScrapCandidatesComunidadMadrid2021.__get_party_abbrev_from_title(parties[0])
+        party_name = NameUtils.get_party_name_from_title(parties[0])
+        party_abbrev = NameUtils.get_party_abbrev_from_title(parties[0])
         logging.debug(f"{party_name} -- {party_abbrev}")
 
         # Process candidates list
@@ -50,31 +50,10 @@ class ScrapCandidatesComunidadMadrid2021(URLReader):
                 json_candidate = {
                     "first_name": first_name,
                     "last_name": last_name,
-                    "party_abbrev": party_abbrev
+                    "party_abbrev": party_abbrev,
+                    "elections": "Comunidad de Madrid",
+                    "year": "2021"
                 }
                 json_candidates["candidates"].append(json_candidate)
 
         return json_candidates
-
-    @staticmethod
-    def __get_party_name_from_title(title: str) -> str:
-        name = None
-
-        if title is not None:
-            index_parenthesis = title.find("(")
-            if index_parenthesis > 0:
-                name = title[0: index_parenthesis]
-
-        return name
-
-    @staticmethod
-    def __get_party_abbrev_from_title(title: str) -> str:
-        name = None
-
-        if title is not None:
-            index_parenthesis = title.find("(") + 1
-            if index_parenthesis > 0:
-                name = title[index_parenthesis:].replace(")", "")
-
-        return name
-
