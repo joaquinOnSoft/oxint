@@ -39,7 +39,7 @@ class NameUtils:
         if title is not None:
             index_parenthesis = title.find("(")
             if index_parenthesis > 0:
-                name = title[0: index_parenthesis].split()
+                name = title[0: index_parenthesis].strip()
 
         return name
 

@@ -24,6 +24,13 @@ class TestNameUtils(unittest.TestCase):
         name = NameUtils.get_last_name_from_full_name("Alfonso Carlos Serrano Sánchez-Capuchino")
         self.assertEqual("Serrano Sánchez-Capuchino", name)
 
+    def test_get_party_abbrev_from_title(self):
+        party_abbrev = NameUtils.get_party_abbrev_from_title("TERCERA EDAD EN ACCIÓN (3e en acción)")
+        self.assertEqual("3e en acción", party_abbrev)
+
+    def test_get_party_name_from_title(self):
+        party_name = NameUtils.get_party_name_from_title("TERCERA EDAD EN ACCIÓN (3e en acción)")
+        self.assertEqual("TERCERA EDAD EN ACCIÓN", party_name)
 
 if __name__ == '__main__':
     unittest.main()
