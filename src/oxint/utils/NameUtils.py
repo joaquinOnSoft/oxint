@@ -4,7 +4,7 @@ class NameUtils:
     def get_first_name_from_full_name(full_name: str) -> str:
         first_name = None
 
-        if full_name is not  None:
+        if full_name is not None:
             tokens = full_name.split(" ")
             num_tokens = len(tokens)
             if num_tokens == 3:
