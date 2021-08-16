@@ -8,15 +8,19 @@ class CSVReader:
     SEE: https://realpython.com/python-csv/#reading-csv-files-into-a-dictionary-with-csv
     """
     def __init__(self):
-        self._headers = None
+        self._custom_headers = None
 
     @property
-    def headers(self):
-        return self._headers
+    def custom_headers(self):
+        return self._custom_headers
 
-    @headers.setter
-    def md(self, headers):
-        self._headers = headers
+    @custom_headers.setter
+    def custom_headers(self, custom_headers):
+        self._custom_headers = custom_headers
+
+    @custom_headers.deleter
+    def custom_headers(self):
+        del self._custom_headers
 
     def ingest(self, file_path: str, encoding: str = 'utf-8', delimiter: str = ','):
         content = {"items": []}
@@ -24,20 +28,23 @@ class CSVReader:
             csv_reader = csv.reader(csv_file, delimiter=delimiter)
             line_count = 0
             num_headers = 0
+            headers = None
 
             for row in csv_reader:
                 if line_count == 0:
                     logging.debug(f'Column names are {", ".join(row)}')
                     num_headers = len(row)
-                    if self._headers is None:
-                        self._headers = row
+                    headers = row
                     line_count += 1
                 else:
                     item = {}
                     index = 0
                     for cell in row:
                         if index < num_headers:
-                            item[self.headers[index]] = cell
+                            if self._custom_headers is None:
+                                item[headers[index]] = cell
+                            else:
+                                item[self._custom_headers[index]] = cell
                         index += 1
 
                     line_count += 1
