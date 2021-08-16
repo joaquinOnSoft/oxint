@@ -1,7 +1,7 @@
 import os
 import unittest
 
-from CSVReader import CSVReader
+from oxint.ingest.CSVReader import CSVReader
 
 
 class TestCSVReader(unittest.TestCase):
