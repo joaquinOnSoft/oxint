@@ -13,7 +13,8 @@ Tool to cross information from open sources and try to identify relations betwee
    - [Buscador avanzado de contratos](https://www.madrid.org/cs/Satellite?cid=1224915242285&language=es&pagename=PortalContratacion%2FPage%2FPCON_buscadorAvanzado)
    allows you to query all the public tenders without applying any filter. You can export the 
    results in csv format (There is a captcha to download the results)
-3. Find owner in companies that have won public tenders
+3. Find positions (owners, counselors...) in companies that have won public tenders
+   - [LibreBOR](https://librebor.me/)
+   - [Información de Empresas Españolas - Infocif](http://www.infocif.es)
    - [Directorio de Ejecutivos - Axesor](https://cargos.axesor.es)
-   - [Información de Empresas Españolas - Infocif](http://www.infocif.es) 
-4. Cross the information
+5. Cross the information
