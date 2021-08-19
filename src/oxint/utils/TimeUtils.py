@@ -1,4 +1,5 @@
 from datetime import date
+from datetime import datetime
 
 
 class TimeUtils:
@@ -20,5 +21,5 @@ class TimeUtils:
         :return: current day and time in format dd/MM/YYYY HH:mm:ss
         SEE: https://www.programiz.com/python-programming/datetime/current-datetime
         """
-        now = date.now()
+        now = datetime.now()
         return now.strftime("%d/%m/%Y %H:%M:%S")
