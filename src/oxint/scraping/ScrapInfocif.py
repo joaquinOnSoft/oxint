@@ -1,4 +1,5 @@
 import logging
+import re
 
 from bs4 import BeautifulSoup
 
@@ -70,7 +71,7 @@ class ScrapInfocif:
         elif field_name == 'Estado:':
             field = "state"
         elif field_name == 'Información Crediticia:':
-            field = "credit information"
+            field = "credit_information"
         else:
             field = "unknown"
             logging.warning(f"Unknown field {field_name}")
@@ -123,7 +124,14 @@ class ScrapInfocif:
                 len(company_info_field_names) == len(company_info_field_values):
 
             for i, val in enumerate(company_info_field_names):
-                mix[val] = company_info_field_values[i]
+                # Manage special fields
+                if val == 'since':
+                    mix[val] = ScrapInfocif.__get_creation_date_from_antiquity(company_info_field_values[i])
+                elif val == 'credit_information':
+                    # Field 'credit_information' intentionally ignored
+                    pass
+                else:
+                    mix[val] = company_info_field_values[i]
 
             mix["last_update"] = TimeUtils.now()
 
@@ -132,5 +140,21 @@ class ScrapInfocif:
     @staticmethod
     def __trim(string: str) -> str:
         if string is not None:
-            string = string.replace("\r\n", " ").replace(u'\xa0', u' ').strip()
+            string = string.replace("\r\n", " ").replace(u'\xa0', ' ').strip()
         return string
+
+    @staticmethod
+    def __get_creation_date_from_antiquity(antiquity: str) -> str:
+        """
+        Extract the company creation date from a string that looks like this:
+            44 años (24/05/1977)
+        :param antiquity: String with the company creation date, e.g. "44 años (24/05/1977)"
+        :return: Company creation date in format dd/mm/yyyy
+        """
+        date = None
+        if antiquity is not None:
+            match = re.findall(r"\d+\/\d+\/\d+", antiquity)
+            if match is not None and len(match) == 1:
+                date = match[0]
+
+        return date
