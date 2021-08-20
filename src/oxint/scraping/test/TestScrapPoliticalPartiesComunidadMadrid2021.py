@@ -19,3 +19,7 @@ class TestScrapPoliticalPartiesComunidadMadrid2021(unittest.TestCase):
         self.assertEqual(self.URL_Cs, json_parties["elections"]["political_parties"][0]["candidates_url"])
         self.assertEqual(self.NAME_Cs, json_parties["elections"]["political_parties"][0]["party_name"])
         self.assertEqual(self.PARTY_ABBREV_Cs, json_parties["elections"]["political_parties"][0]["party_abbrev"])
+
+
+if __name__ == '__main__':
+    unittest.main()

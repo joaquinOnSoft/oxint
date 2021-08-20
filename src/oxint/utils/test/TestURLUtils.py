@@ -1,4 +1,5 @@
 import os
+import unittest
 from unittest import TestCase
 
 from oxint.utils.URLUtils import URLUtils
@@ -18,3 +19,7 @@ class TestURLUtils(TestCase):
                                           "?Buscar=A28476208")
         print(html)
         self.assertIsNotNone(html)
+
+
+if __name__ == '__main__':
+    unittest.main()

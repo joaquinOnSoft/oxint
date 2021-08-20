@@ -32,5 +32,6 @@ class TestNameUtils(unittest.TestCase):
         party_name = NameUtils.get_party_name_from_title("TERCERA EDAD EN ACCIÓN (3e en acción)")
         self.assertEqual("TERCERA EDAD EN ACCIÓN", party_name)
 
+
 if __name__ == '__main__':
     unittest.main()
