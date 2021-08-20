@@ -26,7 +26,12 @@ class ScrapInfocif:
             # recover values from "Company information" section
             company_info_field_values = ScrapInfocif.__get_company_information_field_values(soup)
             # Mix company information (field names and values)
-            company_info = ScrapInfocif.__mix_field_names_with_values(company_info_field_names, company_info_field_values)
+            company_info = ScrapInfocif.__mix_field_names_with_values(company_info_field_names,
+                                                                      company_info_field_values)
+
+            positions = ScrapInfocif.__get_company_positions(soup)
+            company_info["positions"] = positions
+
         return company_info
 
     @staticmethod
@@ -38,8 +43,8 @@ class ScrapInfocif:
         """
         headers = []
 
-        headers_col_1 = soup.find_all("strong", class_="col-md-2 col-sm-3 col-xs-12 cb fwb")
-        headers_col_2 = soup.find_all("strong", class_="col-md-4 col-sm-4 col-xs-12 cb fwb")
+        headers_col_1 = soup.find_all("strong", {"class": "col-md-2 col-sm-3 col-xs-12 cb fwb"})
+        headers_col_2 = soup.find_all("strong", {"class": "col-md-4 col-sm-4 col-xs-12 cb fwb"})
 
         for header in headers_col_1:
             headers.append(ScrapInfocif.__standardize_field_names(header.contents[0]))
@@ -140,7 +145,7 @@ class ScrapInfocif:
     @staticmethod
     def __trim(string: str) -> str:
         if string is not None:
-            string = string.replace("\r\n", " ").replace(u'\xa0', ' ').strip()
+            string = string.replace("  ", "").replace("\r\n", " ").replace(u'\xa0', '').strip()
         return string
 
     @staticmethod
@@ -158,3 +163,26 @@ class ScrapInfocif:
                 date = match[0]
 
         return date
+
+    @staticmethod
+    def __get_company_positions(soup):
+        positions = []
+        positions_table = soup.find_all("table", {"class": "table table-hover"})
+
+        if positions_table is not None and len(positions_table) > 0:
+            # There are 3 columns: Position, Name, Linkages
+            positions_rows = positions_table[0].find_all("td")
+            index = 0
+            for position_row in positions_rows:
+                pos = index % 3
+                if pos == 0:
+                    position = {"position": position_row.text}
+                elif pos == 1:
+                    position["name"] = position_row.text
+                elif pos == 2:
+                    position["linkages"] = position_row.text
+                    positions.append(position)
+                index += 1
+
+        return positions
+
