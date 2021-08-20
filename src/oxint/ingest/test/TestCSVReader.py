@@ -8,7 +8,7 @@ class TestCSVReader(unittest.TestCase):
     def setUp(self) -> None:
         super().setUp()
         self.base_path = os.path.dirname(os.path.realpath(__file__))
-        self.base_path += "/../../../resources/"
+        self.base_path += "/../../../../resources/"
 
     def test_ingest(self):
         file_path = self.base_path + "resultados_contratos_comunidad_madrid.csv"

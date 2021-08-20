@@ -1,11 +1,11 @@
 import unittest
 
 # initialize the test suite
-import oxint.ingest.TestCSVReader as TestCSVReader
-import oxint.scraping.TestScrapCandidatesComunidadMadrid2021 as TestScrapCandidatesComunidadMadrid2021
-import oxint.scraping.TestURLReader as TestURLReader
-import oxint.utils.TestNameUtils as TestNameUtils
-from oxint.scraping.TestScrapPoliticalPartiesComunidadMadrid2021 import TestScrapPoliticalPartiesComunidadMadrid2021
+import oxint.ingest.test.TestCSVReader as TestCSVReader
+import oxint.scraping.test.TestScrapCandidatesComunidadMadrid2021 as TestScrapCandidatesComunidadMadrid2021
+import oxint.scraping.test.TestURLReader as TestURLReader
+import oxint.utils.test.TestNameUtils as TestNameUtils
+from oxint.scraping.test.TestScrapPoliticalPartiesComunidadMadrid2021 import TestScrapPoliticalPartiesComunidadMadrid2021
 
 loader = unittest.TestLoader()
 suite = unittest.TestSuite()
