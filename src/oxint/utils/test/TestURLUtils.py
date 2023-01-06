@@ -17,7 +17,7 @@ class TestURLUtils(TestCase):
         # self.assertTrue(URLUtils.is_html(path))
         html = URLUtils.get_html_from_url("http://www.infocif.es/general/empresas-informacion-listado-empresas.asp"
                                           "?Buscar=A28476208")
-        print(html)
+        # print(html)
         self.assertIsNotNone(html)
 
 

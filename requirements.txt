@@ -1,2 +1,2 @@
-beautifulsoup4~=4.9.3
-setuptools~=57.4.0
+beautifulsoup4~=4.11.1
+setuptools~=65.6.3

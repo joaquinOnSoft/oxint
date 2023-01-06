@@ -12,7 +12,7 @@ class TestScrapPoliticalPartiesComunidadMadrid2021(unittest.TestCase):
     def test_read(self):
         scrap = ScrapPoliticalPartiesComunidadMadrid2021()
         json_parties = scrap.read()
-        print(json_parties)
+        # print(json_parties)
         self.assertIsNotNone(json_parties)
         self.assertEqual(23, len(json_parties["elections"]["political_parties"]))
 
